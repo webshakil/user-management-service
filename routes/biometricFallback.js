@@ -13,16 +13,40 @@ router.post('/register-keys/:userId', async (req, res) => {
   }
 });
 
+//Add security question
+// router.post('/add-question/:userId', express.json({ limit: '10mb' }), async (req, res) => {
+//   try {
+//     const { question, answer } = req.body;
+//     const result = await addSecurityQuestion(req.params.userId, question, answer);
+//     res.json({ success: true, question: result });
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// });
 // Add security question
-router.post('/add-question/:userId', express.json({ limit: '10mb' }), async (req, res) => {
-  try {
-    const { question, answer } = req.body;
-    const result = await addSecurityQuestion(req.params.userId, question, answer);
-    res.json({ success: true, question: result });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+router.post(
+  '/add-question/:userId',
+  express.json({ limit: '10mb' }),
+  async (req, res) => {
+    try {
+      const { question, answer } = req.body;
+      const result = await addSecurityQuestion(
+        req.params.userId,
+        question,
+        answer
+      );
+      res.json({ success: true, question: result });
+    } catch (err) {
+      console.error('❌ Add Question Error:', {
+        message: err.message,
+        stack: err.stack,
+      });
+      res.status(500).json({ success: false, message: err.message });
+    }
   }
-});
+);
+
+
 
 // Get security questions
 router.get('/questions/:userId', async (req, res) => {
