@@ -6,6 +6,7 @@ import crypto from 'crypto';
  * Register RSA key pair for a user
  */
 export const registerKeys = async (userId) => {
+  console.log("userId===>", userId)
   // Generate RSA key pair
   const keypair = forge.pki.rsa.generateKeyPair(2048);
   const publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
